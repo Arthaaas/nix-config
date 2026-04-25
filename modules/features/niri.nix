@@ -23,7 +23,7 @@
           "Mod+Return".spawn-sh = lib.getExe pkgs.kitty;
           "Mod+Q".close-window = {};
           "Mod+S".spawn-sh = "${lib.getExe self'.packages.myNoctalia} ipc call launcher toggle";
-        
+	  "Mod+E".spawn-sh = lib.getExe pkgs.nemo;        
           # Foco entre janelas
           "Mod+Left".focus-column-left = {};
           "Mod+Right".focus-column-right = {};
