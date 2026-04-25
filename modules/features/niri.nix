@@ -19,9 +19,45 @@
         };
         layout.gaps = 5;
         binds = {
+          # Apps
           "Mod+Return".spawn-sh = lib.getExe pkgs.kitty;
           "Mod+Q".close-window = null;
           "Mod+S".spawn-sh = "${lib.getExe self'.packages.myNoctalia} ipc call launcher toggle";
+        
+          # Foco entre janelas
+          "Mod+Left".focus-column-left = {};
+          "Mod+Right".focus-column-right = {};
+          "Mod+Up".focus-window-up = {};
+          "Mod+Down".focus-window-down = {};
+        
+          # Mover janelas
+          "Mod+Shift+Left".move-column-left = {};
+          "Mod+Shift+Right".move-column-right = {};
+          "Mod+Shift+Up".move-window-up = {};
+          "Mod+Shift+Down".move-window-down = {};
+        
+          # Workspaces
+          "Mod+1".focus-workspace = 1;
+          "Mod+2".focus-workspace = 2;
+          "Mod+3".focus-workspace = 3;
+          "Mod+4".focus-workspace = 4;
+          "Mod+5".focus-workspace = 5;
+        
+          # Mover janela para workspace
+          "Mod+Shift+1".move-column-to-workspace = 1;
+          "Mod+Shift+2".move-column-to-workspace = 2;
+          "Mod+Shift+3".move-column-to-workspace = 3;
+          "Mod+Shift+4".move-column-to-workspace = 4;
+          "Mod+Shift+5".move-column-to-workspace = 5;
+        
+          # Tamanho das janelas
+          "Mod+F".maximize-column = {};
+          "Mod+Shift+F".fullscreen-window = {};
+        
+          # Volume
+          "XF86AudioRaiseVolume".spawn-sh = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+";
+          "XF86AudioLowerVolume".spawn-sh = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-";
+          "XF86AudioMute".spawn-sh = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
         };
       };
     };
