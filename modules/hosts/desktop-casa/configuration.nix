@@ -1,5 +1,5 @@
 { self, inputs, ... }: {
-  flake.nixosModules.desktopCasaConfiguration = { pkgs, lib, ... }: {
+  flake.nixosModules.desktopCasaConfiguration = { config, pkgs, lib, ... }: {
     imports = [
       self.nixosModules.desktopCasaHardware
       self.nixosModules.niri
@@ -26,16 +26,17 @@
       grim
       slurp
       polkit_gnome
+      gemini-cli
     ];
 
     nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
     services.displayManager.sddm = {
       enable = true;
-      wayland.enable = true;
+      wayland.enable = false;
       settings = {
         Autologin = {
-          Session = "niri.desktop";
+          Session = "niri";
           User = "arthas";
         };
         General = {
@@ -43,6 +44,8 @@
         };
       };
     };
+
+    services.desktopManager.plasma6.enable = true;
 
     qt = {
       enable = true;
@@ -57,8 +60,10 @@
       powerManagement.enable = false;
       open = true;
       nvidiaSettings = true;
-      package = pkgs.linuxPackages.nvidiaPackages.stable;
+      package = config.boot.kernelPackages.nvidiaPackages.stable;
     };
+
+    boot.kernelPackages = pkgs.linuxPackages_6_12;
 
     boot.blacklistedKernelModules = [ "nouveau" ];
     boot.kernelModules = [ "nvidia" "nvidia_drm" "nvidia_modeset" "nvidia_uvm" ];
@@ -83,7 +88,6 @@
         device = "nodev";
         useOSProber = true;
         copyKernels = true;
-        #efiInstallAsRemovable = true;
       };
     };
 
@@ -112,8 +116,6 @@
     };
 
     console.keyMap = "us";
-
-    services.displayManager.defaultSession = "niri";
 
     services.gnome.gnome-keyring.enable = true;
     security.polkit.enable = true;
