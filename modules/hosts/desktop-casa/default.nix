@@ -5,7 +5,7 @@
       self.nixosModules.desktopCasaConfiguration
       inputs.home-manager.nixosModules.home-manager
       ({ pkgs, ... }: {
-        programs.niri.package = self.packages.${pkgs.stdenv.hostPlatform.system}.myNiri;
+        programs.niri.package = self.packages.${pkgs.stdenv.hostPlatform.system}.myNiriDesktopCasa;
       })
     ];
   };

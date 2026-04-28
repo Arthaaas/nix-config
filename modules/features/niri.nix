@@ -5,9 +5,8 @@
     };
   };
   perSystem = { pkgs, lib, self', ... }: {
-    packages.myNiri = inputs.wrapper-modules.wrappers.niri.wrap {
-      inherit pkgs;
-      settings = {
+    packages = let
+      baseSettings = {
         spawn-at-startup = [
           (lib.getExe self'.packages.myNoctalia)
         ];
@@ -68,6 +67,15 @@
           "XF86AudioLowerVolume".spawn-sh = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-";
           "XF86AudioMute".spawn-sh = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
         };
+      };
+    in {
+      myNiri = inputs.wrapper-modules.wrappers.niri.wrap {
+        inherit pkgs;
+        settings = baseSettings;
+      };
+      myNiriDesktopCasa = inputs.wrapper-modules.wrappers.niri.wrap {
+        inherit pkgs;
+        settings = lib.recursiveUpdate baseSettings (import ../../data/desktop-casa-display-settings.nix);
       };
     };
   };
