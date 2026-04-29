@@ -16,7 +16,7 @@
           variant = "intl";
         };
         layout = {
-          gaps = 5;
+          gaps = 18;
           focus-ring = {
             width = 2;
             active-color = "#ffffff";
@@ -34,6 +34,8 @@
           {
             matches = [ { app-id = ".*"; } ];
             opacity = 0.85;
+            geometry-corner-radius = 8;
+            clip-to-geometry = true;
             draw-border-with-background = false;
             background-effect.blur = true;
           }
