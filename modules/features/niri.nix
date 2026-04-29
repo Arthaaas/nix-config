@@ -38,6 +38,14 @@
             clip-to-geometry = true;
             draw-border-with-background = false;
             background-effect.blur = true;
+            popups = {
+              opacity = 0.95;
+              geometry-corner-radius = 8;
+              background-effect = {
+                xray = true;
+                blur = true;
+              };
+            };
           }
         ];
         binds = {
