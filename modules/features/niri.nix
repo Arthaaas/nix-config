@@ -64,7 +64,7 @@
           "Mod+Return".spawn-sh = lib.getExe pkgs.kitty;
           "Mod+Q".close-window = {};
           "Mod+S".spawn-sh = "${lib.getExe self'.packages.myNoctalia} ipc call launcher toggle";
-          "Mod+E".spawn-sh = lib.getExe pkgs.nemo;
+          "Mod+E".spawn-sh = lib.getExe pkgs.nautilus;
           "Mod+Page_Up".spawn-sh = "${lib.getExe pkgs.slurp} | ${lib.getExe pkgs.grim} -g - - | tee ~/Pictures/screenshot-$(date +%Y%m%d-%H%M%S).png | wl-copy";
           
           # Foco entre janelas

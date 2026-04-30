@@ -14,6 +14,7 @@
       teams-for-linux
       spotify
       nemo
+      nautilus
       ffmpegthumbnailer
       evince
       file-roller

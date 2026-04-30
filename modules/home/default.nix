@@ -8,9 +8,17 @@
         home.stateVersion = "25.11";
         gtk = {
           enable = true;
+          gtk3.extraConfig.gtk-application-prefer-dark-theme = true;
+          gtk4.extraConfig.gtk-application-prefer-dark-theme = true;
           iconTheme = {
             name = "Papirus-Dark";
             package = pkgs.papirus-icon-theme;
+          };
+        };
+        dconf = {
+          enable = true;
+          settings."org/gnome/desktop/interface" = {
+            color-scheme = "prefer-dark";
           };
         };
         home.pointerCursor = {
