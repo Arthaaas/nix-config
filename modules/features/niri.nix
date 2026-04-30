@@ -3,6 +3,7 @@
     programs.niri = {
       enable = true;
     };
+    systemd.user.services.niri.restartIfChanged = false;
   };
   perSystem = { pkgs, lib, self', ... }: {
     packages = let
