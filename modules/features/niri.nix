@@ -65,6 +65,7 @@
           "Mod+Q".close-window = {};
           "Mod+S".spawn-sh = "${lib.getExe self'.packages.myNoctalia} ipc call launcher toggle";
           "Mod+E".spawn-sh = lib.getExe pkgs.nautilus;
+          "Mod+L".spawn-sh = "${lib.getExe self'.packages.myNoctalia} ipc call lockScreen lock";
           "Mod+P".screenshot = {};
           "Mod+Shift+P".screenshot-screen = {};
           "Mod+Ctrl+P".screenshot-window = {};
