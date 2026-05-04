@@ -1,16 +1,32 @@
 { self, inputs, ... }: {
-  flake.nixosModules.desktopBase = { pkgs, ... }: {
-    services.displayManager.sddm = {
+  flake.nixosModules.desktopBase = { config, lib, pkgs, ... }: {
+    services.greetd = {
       enable = true;
-      wayland.enable = false;
-      settings = {
-        Autologin = {
-          Session = "niri";
-          User = "arthas";
-        };
-        General = {
-          DefaultSession = "niri";
-        };
+      useTextGreeter = true;
+      settings.default_session = {
+        user = "greeter";
+        command = lib.escapeShellArgs [
+          "${pkgs.tuigreet}/bin/tuigreet"
+          "--cmd"
+          "${config.programs.niri.package}/bin/niri-session"
+          "--greeting"
+          "Seja bem-vindo!"
+          "--time"
+          "--time-format"
+          "%H:%M"
+          "--remember"
+          "--asterisks"
+          "--width"
+          "60"
+          "--container-padding"
+          "1"
+          "--prompt-padding"
+          "1"
+          "--greet-align"
+          "center"
+          "--theme"
+          "border=#a89984;text=#ebdbb2;prompt=#b8bb26;time=#fabd2f;action=#fe8019;button=#83a598;container=#282828;input=#fbf1c7"
+        ];
       };
     };
 
