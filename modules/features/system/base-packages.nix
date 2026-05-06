@@ -4,6 +4,19 @@
       papirus-icon-theme
       git
       neovim
+      ripgrep
+      fd
+      fzf
+      lazygit
+      gcc
+      gnumake
+      unzip
+      curl
+      nodejs
+      stylua
+      lua-language-server
+      nil
+      nixfmt-rfc-style
       wget
       brave
       kitty
