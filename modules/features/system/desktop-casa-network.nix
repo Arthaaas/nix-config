@@ -1,6 +1,6 @@
 { self, inputs, ... }: {
   flake.nixosModules.desktopCasaNetwork = { ... }: {
-    networking.hostName = "Arthas";
+    networking.hostName = "nixos";
     networking.networkmanager.enable = true;
   };
 }

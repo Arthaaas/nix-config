@@ -1,5 +1,5 @@
 { self, inputs, ... }: {
-  flake.nixosConfigurations.desktopCasa = inputs.nixpkgs.lib.nixosSystem {
+  flake.nixosConfigurations.pc = inputs.nixpkgs.lib.nixosSystem {
     specialArgs = { inherit inputs self; };
     modules = [
       self.nixosModules.desktopCasaConfiguration
