@@ -5,7 +5,12 @@
       useUserPackages = true;
       backupFileExtension = "hm-backup";
       users.arthas = {
+        imports = [
+          self.homeModules.default
+        ];
+
         home.stateVersion = "25.11";
+
         gtk = {
           enable = true;
           gtk3.extraConfig.gtk-application-prefer-dark-theme = true;
@@ -27,15 +32,6 @@
           size = 24;
           gtk.enable = true;
           x11.enable = true;
-        };
-        home.file.".config/kitty/tmux-main.session".source = ../dotfiles/kitty/tmux-main.session;
-        programs.kitty = {
-          enable = true;
-          extraConfig = builtins.readFile ../dotfiles/kitty/kitty.conf;
-        };
-        programs.tmux = {
-          enable = true;
-          extraConfig = builtins.readFile ../dotfiles/tmux/tmux.conf;
         };
       };
     };
