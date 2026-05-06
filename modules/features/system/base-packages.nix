@@ -26,6 +26,8 @@
       codex
       tmux
       just
+      calibre
+      fastfetch
     ];
   };
 }
