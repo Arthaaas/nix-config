@@ -11,6 +11,7 @@
       self.nixosModules.nvidiaDesktop
       self.nixosModules.pipewireAudio
       self.nixosModules.fuxiH3AudioFix
+      self.nixosModules.gaming
       self.nixosModules.desktopCasaBoot
       self.nixosModules.desktopCasaNetwork
       self.nixosModules.desktopCasaLocale
