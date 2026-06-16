@@ -9,6 +9,7 @@
     }:
     let
       system = pkgs.stdenv.hostPlatform.system;
+      homeDirectory = config.my.host.homeDirectory;
       dmsPackage = inputs.dms.packages.${system}.default;
       quickshellPackage = inputs.quickshell.packages.${system}.default;
       dmsGreeterLog = "/var/lib/dms-greeter/dms-greeter.log";
@@ -25,8 +26,8 @@
             pkgs.glib
           ]
         }:$PATH"
-        export XDG_DATA_DIRS="${config.programs.niri.package}/share:${pkgs.adwaita-icon-theme}/share:${pkgs.hicolor-icon-theme}/share:/run/current-system/sw/share:/etc/profiles/per-user/arthas/share:/nix/var/nix/profiles/default/share''${XDG_DATA_DIRS:+:$XDG_DATA_DIRS}"
-        export XCURSOR_PATH="${pkgs.adwaita-icon-theme}/share/icons:${pkgs.hicolor-icon-theme}/share/icons:/run/current-system/sw/share/icons:/etc/profiles/per-user/arthas/share/icons:/nix/var/nix/profiles/default/share/icons''${XCURSOR_PATH:+:$XCURSOR_PATH}"
+        export XDG_DATA_DIRS="${config.programs.niri.package}/share:${pkgs.adwaita-icon-theme}/share:${pkgs.hicolor-icon-theme}/share:/run/current-system/sw/share:/etc/profiles/per-user/${config.my.host.userName}/share:/nix/var/nix/profiles/default/share''${XDG_DATA_DIRS:+:$XDG_DATA_DIRS}"
+        export XCURSOR_PATH="${pkgs.adwaita-icon-theme}/share/icons:${pkgs.hicolor-icon-theme}/share/icons:/run/current-system/sw/share/icons:/etc/profiles/per-user/${config.my.host.userName}/share/icons:/nix/var/nix/profiles/default/share/icons''${XCURSOR_PATH:+:$XCURSOR_PATH}"
         export XCURSOR_THEME="Adwaita"
         export XDG_SESSION_TYPE=wayland
         export QT_QPA_PLATFORM=wayland
@@ -98,7 +99,7 @@
           package = dmsPackage;
           quickshell.package = quickshellPackage;
           compositor.name = "niri";
-          configHome = "/home/arthas";
+          configHome = homeDirectory;
           logs = {
             save = true;
             path = dmsGreeterLog;

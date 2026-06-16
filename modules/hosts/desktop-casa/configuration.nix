@@ -1,6 +1,7 @@
 { self, inputs, ... }: {
   flake.nixosModules.desktopCasaConfiguration = { config, pkgs, lib, ... }: {
     imports = [
+      self.nixosModules.hostOptions
       self.nixosModules.desktopCasaHardware
       self.nixosModules.niri
       self.nixosModules.dms

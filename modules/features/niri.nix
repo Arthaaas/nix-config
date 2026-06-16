@@ -6,12 +6,12 @@
   };
   perSystem = { pkgs, lib, self', ... }: {
     packages = let
-      baseSettings = {
+      mkBaseSettings = homeDirectory: {
         spawn-at-startup = [
           [
             (lib.getExe self'.packages.myDms)
             "run"
-            "/home/arthas/.local/bin/niri-sidebar"
+            "${homeDirectory}/.local/bin/niri-sidebar"
             "listen"
           ]
         ];
@@ -148,10 +148,10 @@
           "Mod+Shift+Space".toggle-window-floating = {};
 
           # Sidebar
-          "Mod+B".spawn-sh = "/home/arthas/.local/bin/niri-sidebar toggle-window";
-          "Mod+Shift+B".spawn-sh = "/home/arthas/.local/bin/niri-sidebar toggle-visibility";
-          "Mod+Ctrl+B".spawn-sh = "/home/arthas/.local/bin/niri-sidebar flip";
-          "Mod+Alt+B".spawn-sh = "/home/arthas/.local/bin/niri-sidebar reorder";
+          "Mod+B".spawn-sh = "${homeDirectory}/.local/bin/niri-sidebar toggle-window";
+          "Mod+Shift+B".spawn-sh = "${homeDirectory}/.local/bin/niri-sidebar toggle-visibility";
+          "Mod+Ctrl+B".spawn-sh = "${homeDirectory}/.local/bin/niri-sidebar flip";
+          "Mod+Alt+B".spawn-sh = "${homeDirectory}/.local/bin/niri-sidebar reorder";
         
           # Volume
           "XF86AudioRaiseVolume".spawn-sh = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+";
@@ -159,6 +159,7 @@
           "XF86AudioMute".spawn-sh = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
         };
       };
+      baseSettings = mkBaseSettings "/home/arthas";
     in {
       myDms = inputs.dms.packages.${pkgs.stdenv.hostPlatform.system}.default;
 
@@ -169,6 +170,10 @@
       myNiriDesktopCasa = inputs.wrapper-modules.wrappers.niri.wrap {
         inherit pkgs;
         settings = lib.recursiveUpdate baseSettings (import ../../data/desktop-casa-display-settings.nix);
+      };
+      myNiriNotebookKot = inputs.wrapper-modules.wrappers.niri.wrap {
+        inherit pkgs;
+        settings = mkBaseSettings "/home/arthurb";
       };
     };
   };
