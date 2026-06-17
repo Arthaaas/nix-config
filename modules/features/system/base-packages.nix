@@ -50,6 +50,7 @@
       docker
       jetbrains.rider
       libreoffice
+      remmina
     ];
   };
 }
