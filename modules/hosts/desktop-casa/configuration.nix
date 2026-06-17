@@ -1,27 +1,30 @@
-{ self, inputs, ... }: {
-  flake.nixosModules.desktopCasaConfiguration = { config, pkgs, lib, ... }: {
-    imports = [
-      self.nixosModules.hostOptions
-      self.nixosModules.desktopCasaHardware
-      self.nixosModules.niri
-      self.nixosModules.dms
-      self.nixosModules.home
-      self.nixosModules.desktopBasePackages
-      self.nixosModules.desktopBase
-      self.nixosModules.nvidiaDesktop
-      self.nixosModules.pipewireAudio
-      self.nixosModules.fuxiH3AudioFix
-      self.nixosModules.gaming
-      self.nixosModules.desktopCasaBoot
-      self.nixosModules.desktopCasaNetwork
-      self.nixosModules.desktopCasaLocale
-      self.nixosModules.desktopCasaUser
-    ];
+{ self, inputs, ... }:
+{
+  flake.nixosModules.desktopCasaConfiguration =
+    {
+      config,
+      pkgs,
+      lib,
+      ...
+    }:
+    {
+      imports = [
+        self.nixosModules.desktopCasaHardware
+        self.nixosModules.personalDesktopProfile
+        self.nixosModules.grubEfiBoot
+      ];
 
-    nix.settings.experimental-features = [ "nix-command" "flakes" ];
+      my.host = {
+        name = "nixos";
+        userName = "arthas";
+        homeDirectory = "/home/arthas";
+        keyboard = {
+          consoleKeyMap = "us";
+          layout = "us";
+          variant = "intl";
+        };
+      };
 
-    nixpkgs.config.allowUnfree = true;
-
-    system.stateVersion = "25.11";
-  };
+      system.stateVersion = "25.11";
+    };
 }

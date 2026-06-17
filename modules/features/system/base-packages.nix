@@ -1,56 +1,24 @@
-{ self, inputs, ... }: {
-  flake.nixosModules.desktopBasePackages = { pkgs, ... }: {
-    environment.systemPackages = with pkgs; [
-      papirus-icon-theme
-      git
-      neovim
-      ripgrep
-      fd
-      fzf
-      yazi
-      lazygit
-      gcc
-      gnumake
-      unzip
-      curl
-      python3
-      nodejs
-      dotnet-sdk
-      stylua
-      lua-language-server
-      nil
-      nixfmt-rfc-style
-      wget
-      brave
-      kitty
-      vscode
-      obsidian
-      qbittorrent
-      discord
-      teams-for-linux
-      spotify
-      nemo
-      nautilus
-      ffmpegthumbnailer
-      evince
-      file-roller
-      wl-clipboard
-      grim
-      slurp
-      polkit_gnome
-      gemini-cli
-      codex
-      tmux
-      just
-      calibre
-      fastfetch
-      wdisplays
-      btop
-      winboat
-      docker
-      jetbrains.rider
-      libreoffice
-      remmina
-    ];
-  };
+{ self, inputs, ... }:
+{
+  flake.nixosModules.desktopBasePackages =
+    { ... }:
+    {
+      imports = [
+        self.nixosModules.corePackages
+        self.nixosModules.devPackages
+        self.nixosModules.desktopAppPackages
+        self.nixosModules.workPackages
+        self.nixosModules.personalPackages
+        self.nixosModules.mediaPackages
+      ];
+
+      my.packages = {
+        core.enable = true;
+        dev.enable = true;
+        desktopApps.enable = true;
+        work.enable = true;
+        personal.enable = true;
+        media.enable = true;
+      };
+    };
 }
