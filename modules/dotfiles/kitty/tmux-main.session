@@ -1,2 +1,2 @@
-# Abre o shell diretamente dentro da sessao principal do tmux.
-launch bash -lc 'tmux attach -t main || tmux new -s main'
+# Abre a primeira instancia como main e pergunta o nome das proximas sessoes.
+launch bash -lc 'exec "$HOME/.config/kitty/tmux-session.sh"'
