@@ -9,6 +9,7 @@
       self.nixosModules.desktopBasePackages
       self.nixosModules.desktopBase
       self.nixosModules.pipewireAudio
+      self.nixosModules.fuxiH3AudioFix
       self.nixosModules.desktopCasaUser
     ];
 
