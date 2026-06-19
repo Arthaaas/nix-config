@@ -24,7 +24,7 @@
           wget
           tmux
           just
-          fastfetch
+          inputs.areofyl-fetch.packages.${pkgs.system}.default
           btop
         ];
       };

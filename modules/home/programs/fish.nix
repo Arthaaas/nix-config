@@ -8,9 +8,9 @@
         interactiveShellInit = ''
           set -g fish_greeting
 
-          if type -q fastfetch
+          if type -q fetch
             clear
-            fastfetch
+            fetch
           end
         '';
       };
