@@ -15,6 +15,7 @@
           teams-for-linux
           libreoffice
           remmina
+          anydesk
         ];
       };
     };
