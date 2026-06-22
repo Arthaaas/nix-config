@@ -17,6 +17,7 @@
           kitty
           nemo
           nautilus
+          networkmanagerapplet
           evince
           file-roller
           wl-clipboard

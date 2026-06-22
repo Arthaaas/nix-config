@@ -11,6 +11,8 @@
       options.my.packages.dev.enable = lib.mkEnableOption "development packages";
 
       config = lib.mkIf config.my.packages.dev.enable {
+        virtualisation.docker.enable = true;
+
         environment.systemPackages = with pkgs; [
           gcc
           gnumake
