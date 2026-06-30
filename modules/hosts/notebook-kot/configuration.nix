@@ -18,6 +18,8 @@
         name = "kot247";
         userName = "arthurb";
         homeDirectory = "/home/arthurb";
+        defaultLocale = "pt_BR.UTF-8";
+        extraLocale = "pt_BR.UTF-8";
         keyboard = {
           consoleKeyMap = "br-abnt2";
           layout = "br";

@@ -40,6 +40,21 @@
 
     gtk.iconCache.enable = true;
 
+    fonts = {
+      packages = [
+        pkgs.nerd-fonts.jetbrains-mono
+      ];
+
+      fontconfig = {
+        enable = true;
+        defaultFonts = {
+          monospace = [ "JetBrainsMono Nerd Font Mono" ];
+          sansSerif = [ "JetBrainsMono Nerd Font" ];
+          serif = [ "JetBrainsMono Nerd Font" ];
+        };
+      };
+    };
+
     services.xserver.enable = true;
     services.xserver.xkb = {
       layout = lib.mkDefault "us";
@@ -56,6 +71,5 @@
     };
 
     services.printing.enable = true;
-    programs.firefox.enable = true;
   };
 }
