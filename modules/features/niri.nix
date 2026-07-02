@@ -11,13 +11,29 @@
       system = pkgs.stdenv.hostPlatform.system;
       dmsPackage = inputs.dms.packages.${system}.default;
       dmsOutputsPath = "${config.my.host.homeDirectory}/.config/niri/dms/outputs.kdl";
+      niriSidebar = pkgs.rustPlatform.buildRustPackage {
+        pname = "niri-sidebar";
+        version = "unstable-2026-05-16";
+
+        src = pkgs.fetchFromGitHub {
+          owner = "Vigintillionn";
+          repo = "niri-sidebar";
+          rev = "954f62e7e395ae14f01af582296e25a548133dc0";
+          hash = "sha256-MYP1ZiwV9+yJhl0zpuri6NQkQHlaYZjGBhXpZEaPZyI=";
+        };
+
+        cargoHash = "sha256-zZlfwAxWE1ZZy6k7QoBOamCGigGShd89sD27vfvgR00=";
+
+        meta.mainProgram = "niri-sidebar";
+      };
+      niriSidebarExe = lib.getExe niriSidebar;
 
       mkBaseSettings = homeDirectory: {
         spawn-at-startup = [
           [
             (lib.getExe dmsPackage)
             "run"
-            "${homeDirectory}/.local/bin/niri-sidebar"
+            niriSidebarExe
             "listen"
           ]
         ];
@@ -142,10 +158,10 @@
           "Mod+Space".toggle-overview = { };
           "Mod+Shift+Space".toggle-window-floating = { };
 
-          "Mod+B".spawn-sh = "${homeDirectory}/.local/bin/niri-sidebar toggle-window";
-          "Mod+Shift+B".spawn-sh = "${homeDirectory}/.local/bin/niri-sidebar toggle-visibility";
-          "Mod+Ctrl+B".spawn-sh = "${homeDirectory}/.local/bin/niri-sidebar flip";
-          "Mod+Alt+B".spawn-sh = "${homeDirectory}/.local/bin/niri-sidebar reorder";
+          "Mod+B".spawn-sh = "${niriSidebarExe} toggle-window";
+          "Mod+Shift+B".spawn-sh = "${niriSidebarExe} toggle-visibility";
+          "Mod+Ctrl+B".spawn-sh = "${niriSidebarExe} flip";
+          "Mod+Alt+B".spawn-sh = "${niriSidebarExe} reorder";
 
           "XF86AudioRaiseVolume".spawn-sh = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+";
           "XF86AudioLowerVolume".spawn-sh = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-";
@@ -159,6 +175,10 @@
         default = null;
         description = "Host-specific declarative Niri display settings. When null, DMS may manage outputs.";
       };
+
+      config.environment.systemPackages = [
+        niriSidebar
+      ];
 
       config.programs.niri = {
         enable = true;
