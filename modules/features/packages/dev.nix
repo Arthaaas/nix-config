@@ -28,6 +28,9 @@
           codex
           docker
           jetbrains.rider
+          opencode
+          ripgrep
+          fd
         ];
       };
     };
