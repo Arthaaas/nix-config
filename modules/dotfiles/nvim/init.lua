@@ -1,4 +1,8 @@
 require("config.options")
 require("config.keymaps")
+require("config.pack")
 require("plugins.telescope")
+require("plugins.treesitter")
 require("config.autocmds")
+require("plugins.which-key")
+require("plugins.smear-cursor")
