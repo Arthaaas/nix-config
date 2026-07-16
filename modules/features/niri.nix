@@ -42,6 +42,10 @@
           layout = config.my.host.keyboard.layout;
           variant = config.my.host.keyboard.variant;
         };
+        input.touchpad = {
+          tap = _: { };
+          natural-scroll = _: { };
+        };
         layout = {
           gaps = 18;
           focus-ring = {

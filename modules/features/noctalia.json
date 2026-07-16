@@ -143,7 +143,7 @@
             "displayMode": "graphic-clean",
             "hideIfIdle": false,
             "hideIfNotDetected": true,
-            "id": "Battery",
+            "id": "battery",
             "showNoctaliaPerformance": false,
             "showPowerProfiles": false
           },
