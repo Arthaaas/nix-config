@@ -78,6 +78,26 @@
       extraPortals = [ pkgs.xdg-desktop-portal-gnome ];
     };
 
-    services.printing.enable = true;
+    services.printing = {
+      enable = true;
+      drivers = with pkgs; [
+        epson-escpr2
+        epson-escpr
+      ];
+    };
+
+    services.avahi = {
+      enable = true;
+      nssmdns4 = true;
+      openFirewall = true;
+    };
+
+    hardware.sane = {
+      enable = true;
+      extraBackends = with pkgs; [
+        sane-airscan
+        epsonscan2
+      ];
+    };
   };
 }

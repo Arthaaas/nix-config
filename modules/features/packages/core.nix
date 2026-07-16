@@ -28,6 +28,8 @@
           btop
           qimgv
           traceroute
+          kdePackages.okular
+          notepad-next
         ];
       };
     };

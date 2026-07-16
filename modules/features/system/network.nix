@@ -16,6 +16,7 @@ let
         enable = true;
         plugins = [ pkgs.networkmanager-openvpn ];
       };
+      environment.systemPackages = [ openvpnDbusService ];
       services.dbus.packages = [ openvpnDbusService ];
       networking.firewall.enable = true;
       networking.firewall.allowedTCPPorts = [
