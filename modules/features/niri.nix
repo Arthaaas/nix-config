@@ -116,18 +116,30 @@
 
           "Mod+Left".focus-column-left = { };
           "Mod+Right".focus-column-right = { };
+          "Mod+WheelScrollLeft".focus-column-left = { };
+          "Mod+WheelScrollRight".focus-column-right = { };
           "Mod+Up".focus-window-up = { };
           "Mod+Down".focus-window-down = { };
+          "Mod+WheelScrollUp".focus-window-up = { };
+          "Mod+WheelScrollDown".focus-window-down = { };
 
           "Mod+Alt+Left".focus-monitor-left = { };
           "Mod+Alt+Right".focus-monitor-right = { };
+          "Mod+Alt+WheelScrollLeft".focus-monitor-left = { };
+          "Mod+Alt+WheelScrollRight".focus-monitor-right = { };
           "Mod+Alt+Shift+Left".move-window-to-monitor-left = { };
           "Mod+Alt+Shift+Right".move-window-to-monitor-right = { };
+          "Mod+Alt+Shift+WheelScrollLeft".move-window-to-monitor-left = { };
+          "Mod+Alt+Shift+WheelScrollRight".move-window-to-monitor-right = { };
 
           "Mod+Shift+Left".move-column-left = { };
           "Mod+Shift+Right".move-column-right = { };
+          "Mod+Shift+WheelScrollLeft".move-column-left = { };
+          "Mod+Shift+WheelScrollRight".move-column-right = { };
           "Mod+Shift+Up".move-window-up = { };
           "Mod+Shift+Down".move-window-down = { };
+          "Mod+Shift+WheelScrollUp".move-window-up = { };
+          "Mod+Shift+WheelScrollDown".move-window-down = { };
 
           "Mod+W".toggle-column-tabbed-display = { };
           "Mod+A".consume-window-into-column = { };

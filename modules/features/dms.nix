@@ -83,6 +83,20 @@
         inputs.dms.nixosModules.greeter
       ];
 
+      nixpkgs.overlays = [
+        (final: prev: {
+          python3Packages = prev.python3Packages.overrideScope (
+            pyFinal: pyPrev: {
+              click-threading = pyPrev.click-threading.overridePythonAttrs (old: {
+                disabledTestPaths = (old.disabledTestPaths or [ ]) ++ [
+                  "docs/conf.py"
+                ];
+              });
+            }
+          );
+        })
+      ];
+
       services.greetd.settings.default_session.user = "greeter";
       services.greetd.settings.default_session.command =
         lib.mkForce "${dmsGreeterDebug}/bin/dms-greeter-debug";

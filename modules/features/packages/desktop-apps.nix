@@ -26,6 +26,7 @@
           polkit_gnome
           wdisplays
           winboat
+          solaar
         ];
       };
     };
