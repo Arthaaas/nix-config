@@ -27,6 +27,7 @@
           wdisplays
           winboat
           solaar
+          localsend
         ];
       };
     };
