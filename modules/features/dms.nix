@@ -10,6 +10,7 @@
     let
       system = pkgs.stdenv.hostPlatform.system;
       homeDirectory = config.my.host.homeDirectory;
+      sessionData = config.services.displayManager.sessionData.desktops;
       dmsPackage = inputs.dms.packages.${system}.default;
       quickshellPackage = inputs.quickshell.packages.${system}.default;
       dmsGreeterLog = "/var/lib/dms-greeter/dms-greeter.log";
@@ -26,7 +27,7 @@
             pkgs.glib
           ]
         }:$PATH"
-        export XDG_DATA_DIRS="${config.programs.niri.package}/share:${pkgs.adwaita-icon-theme}/share:${pkgs.hicolor-icon-theme}/share:/run/current-system/sw/share:/etc/profiles/per-user/${config.my.host.userName}/share:/nix/var/nix/profiles/default/share''${XDG_DATA_DIRS:+:$XDG_DATA_DIRS}"
+        export XDG_DATA_DIRS="${sessionData}/share:${config.programs.niri.package}/share:${pkgs.adwaita-icon-theme}/share:${pkgs.hicolor-icon-theme}/share:/run/current-system/sw/share:/etc/profiles/per-user/${config.my.host.userName}/share:/nix/var/nix/profiles/default/share''${XDG_DATA_DIRS:+:$XDG_DATA_DIRS}"
         export XCURSOR_PATH="${pkgs.adwaita-icon-theme}/share/icons:${pkgs.hicolor-icon-theme}/share/icons:/run/current-system/sw/share/icons:/etc/profiles/per-user/${config.my.host.userName}/share/icons:/nix/var/nix/profiles/default/share/icons''${XCURSOR_PATH:+:$XCURSOR_PATH}"
         export XCURSOR_THEME="Adwaita"
         export XDG_SESSION_TYPE=wayland

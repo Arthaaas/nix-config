@@ -30,12 +30,14 @@
       };
     };
 
-    services.desktopManager.plasma6.enable = false;
+    services.desktopManager.plasma6.enable = true;
+    services.desktopManager.cosmic.enable = true;
+    services.displayManager.defaultSession = "plasmax11";
 
     qt = {
       enable = true;
-      platformTheme = "gtk2";
-      style = "gtk2";
+      platformTheme = "kde";
+      style = "breeze";
     };
 
     gtk.iconCache.enable = true;
