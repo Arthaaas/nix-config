@@ -11,6 +11,8 @@
       options.my.packages.desktopApps.enable = lib.mkEnableOption "desktop application packages";
 
       config = lib.mkIf config.my.packages.desktopApps.enable {
+        services.ratbagd.enable = true;
+
         environment.systemPackages = with pkgs; [
           papirus-icon-theme
           brave
@@ -26,8 +28,10 @@
           polkit_gnome
           wdisplays
           winboat
-          solaar
           localsend
+          piper
+          solaar
+          libratbag
         ];
       };
     };
