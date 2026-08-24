@@ -8,6 +8,7 @@
     ./media.nix
     ./notes.nix
     ./personal.nix
+    ./games.nix
     ./work.nix
   ];
 }

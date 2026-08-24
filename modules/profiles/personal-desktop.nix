@@ -17,6 +17,7 @@
         notes.enable = true;
         personal.enable = true;
         media.enable = true;
+        games.enable = true;
       };
     };
 }
