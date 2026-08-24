@@ -10,6 +10,7 @@
         self.nixosModules.home
         self.nixosModules.corePackages
         self.nixosModules.devPackages
+        self.nixosModules.erpDevPackages
         self.nixosModules.desktopAppPackages
         self.nixosModules.workPackages
         self.nixosModules.notesPackages

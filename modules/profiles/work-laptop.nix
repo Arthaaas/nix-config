@@ -10,6 +10,7 @@
       my.packages = {
         core.enable = true;
         dev.enable = true;
+        erpDev.enable = true;
         desktopApps.enable = true;
         work.enable = true;
         notes.enable = true;
