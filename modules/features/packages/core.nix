@@ -30,6 +30,7 @@
           traceroute
           kdePackages.okular
           notepad-next
+          firefox
         ];
       };
     };

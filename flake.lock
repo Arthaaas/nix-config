@@ -110,6 +110,26 @@
         "type": "github"
       }
     },
+    "inir": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1787685543,
+        "narHash": "sha256-lLwOVZHqzqCITgxNBFbadm1pswXtGsxNQx9GIzSreco=",
+        "owner": "snowarch",
+        "repo": "inir",
+        "rev": "607f4e43079aaa7ebfed03e0e35e8f54468ffe64",
+        "type": "github"
+      },
+      "original": {
+        "owner": "snowarch",
+        "repo": "inir",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1783522502,
@@ -168,6 +188,7 @@
         "flake-parts": "flake-parts",
         "home-manager": "home-manager",
         "import-tree": "import-tree",
+        "inir": "inir",
         "nixpkgs": "nixpkgs",
         "quickshell": "quickshell",
         "wrapper-modules": "wrapper-modules",

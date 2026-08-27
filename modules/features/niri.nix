@@ -9,7 +9,9 @@
     }:
     let
       system = pkgs.stdenv.hostPlatform.system;
-      dmsPackage = inputs.dms.packages.${system}.default;
+      inirPackage = inputs.inir.packages.${system}.default;
+      inirExe = lib.getExe inirPackage;
+      inirCommand = args: lib.escapeShellArgs ([ inirExe ] ++ args);
       dmsOutputsPath = "${config.my.host.homeDirectory}/.config/niri/dms/outputs.kdl";
       niriSidebar = pkgs.rustPlatform.buildRustPackage {
         pname = "niri-sidebar";
@@ -31,8 +33,6 @@
       mkBaseSettings = homeDirectory: {
         spawn-at-startup = [
           [
-            (lib.getExe dmsPackage)
-            "run"
             niriSidebarExe
             "listen"
           ]
@@ -107,12 +107,26 @@
         binds = {
           "Mod+Return".spawn-sh = lib.getExe pkgs.kitty;
           "Mod+Q".close-window = { };
-          "Mod+S".spawn-sh = "${lib.getExe dmsPackage} ipc call spotlight toggle";
+          "Mod+S".spawn-sh = inirCommand [ "overview" "toggle" ];
           "Mod+E".spawn-sh = lib.getExe pkgs.nautilus;
-          "Mod+L".spawn-sh = "${lib.getExe dmsPackage} ipc call lock lock";
+          "Mod+L".spawn-sh = inirCommand [ "lock" "activate" ];
           "Mod+P".screenshot = { };
           "Mod+Shift+P".screenshot-screen = { };
           "Mod+Ctrl+P".screenshot-window = { };
+          "Mod+Shift+S".spawn-sh = inirCommand [ "region" "screenshot" ];
+          "Mod+Shift+X".spawn-sh = inirCommand [ "region" "ocr" ];
+          "Mod+Alt+A".spawn-sh = inirCommand [ "region" "search" ];
+
+          "Mod+G".spawn-sh = inirCommand [ "overlay" "toggle" ];
+          "Mod+Alt+V".spawn-sh = inirCommand [ "clipboard" "toggle" ];
+          "Mod+Comma".spawn-sh = inirCommand [ "settings" ];
+          "Mod+Slash".spawn-sh = inirCommand [ "cheatsheet" "toggle" ];
+          "Mod+Alt+L".spawn-sh = inirCommand [ "lock" "activate" ];
+          "Ctrl+Alt+T".spawn-sh = inirCommand [ "wallpaperSelector" "toggle" ];
+          "Mod+Shift+W".spawn-sh = inirCommand [ "panelFamily" "cycle" ];
+          "Mod+Shift+Q".spawn-sh = inirCommand [ "session" "toggle" ];
+          "Alt+Tab".spawn-sh = inirCommand [ "altSwitcher" "next" ];
+          "Alt+Shift+Tab".spawn-sh = inirCommand [ "altSwitcher" "previous" ];
 
           "Mod+Left".focus-column-left = { };
           "Mod+Right".focus-column-right = { };
