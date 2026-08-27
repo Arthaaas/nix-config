@@ -16,6 +16,7 @@
         environment.systemPackages = with pkgs; [
           papirus-icon-theme
           brave
+          inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
           kitty
           nemo
           nautilus
