@@ -21,6 +21,7 @@
           nemo
           nautilus
           networkmanagerapplet
+          pwvucontrol
           evince
           file-roller
           wl-clipboard
