@@ -9,6 +9,7 @@
 
       programs.inir = {
         enable = true;
+        service.enable = false;
         service.compositor = "niri";
         extraPackages = [ config.programs.niri.package ];
       };

@@ -1,0 +1,9 @@
+# Versioned, clean Noctalia v5 config for the `niri-noctalia-v5` login session.
+#
+# This is intentionally minimal: it leaves every setting at Noctalia's
+# defaults instead of guessing at schema keys. It is linked to
+# ~/.config/noctalia-v5-clean/noctalia/config.toml (NOCTALIA_CONFIG_HOME is
+# set to ~/.config/noctalia-v5-clean by the niri-noctalia-v5 session script),
+# keeping this profile isolated from any other Noctalia config on the system.
+#
+# Validate with: noctalia config validate

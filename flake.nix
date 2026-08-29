@@ -21,6 +21,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    noctalia = {
+      url = "github:noctalia-dev/noctalia";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     quickshell = {
       url = "github:quickshell-mirror/quickshell";
       inputs.nixpkgs.follows = "nixpkgs";
