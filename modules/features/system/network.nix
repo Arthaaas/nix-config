@@ -22,8 +22,12 @@ let
       networking.firewall.allowedTCPPorts = [
         8080
         9090
+        53317
       ];
-      networking.firewall.allowedUDPPorts = [ 5353 ];
+      networking.firewall.allowedUDPPorts = [
+        5353
+        53317
+      ];
     };
 in
 {
