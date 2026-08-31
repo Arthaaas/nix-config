@@ -77,7 +77,17 @@
     services.gvfs.enable = true;
     xdg.portal = {
       enable = true;
-      extraPortals = [ pkgs.xdg-desktop-portal-gnome ];
+      extraPortals = [
+        pkgs.xdg-desktop-portal-gtk
+        pkgs.xdg-desktop-portal-gnome
+      ];
+      config.niri = lib.mkForce {
+        default = [
+          "gtk"
+          "gnome"
+        ];
+        "org.freedesktop.impl.portal.Secret" = "gnome-keyring";
+      };
     };
 
     services.printing = {
