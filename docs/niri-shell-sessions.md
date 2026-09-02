@@ -42,7 +42,7 @@ O Noctalia v5 desta sessao usa:
 
 ```sh
 NOCTALIA_CONFIG_HOME=$HOME/.config/noctalia-v5-clean
-NOCTALIA_STATE_HOME=$XDG_RUNTIME_DIR/noctalia-v5-clean-state
+NOCTALIA_STATE_HOME=$HOME/.local/state/noctalia-v5-clean
 ```
 
 O arquivo versionado atual e `modules/dotfiles/noctalia-v5/config.toml`, linkado pelo Home Manager para:
@@ -51,10 +51,53 @@ O arquivo versionado atual e `modules/dotfiles/noctalia-v5/config.toml`, linkado
 ~/.config/noctalia-v5-clean/noctalia/config.toml
 ```
 
-## Script legado
+O estado mutavel criado pela UI do Noctalia v5 fica em:
 
-`scripts/sync-noctalia-config` foi criado para outro momento da configuracao e deve ser tratado como legado.
-Nao use esse script como fonte de verdade para Noctalia v5 sem revisar o impacto antes.
+```text
+~/.local/state/noctalia-v5-clean/noctalia
+```
+
+Esse caminho e linkado pelo Home Manager para:
+
+```text
+~/nix-config/modules/dotfiles/noctalia-v5-hosts/<my.host.name>/noctalia
+```
+
+Assim, cada host mantem uma copia propria das configuracoes visuais do
+Noctalia. O sync preserva `settings.toml`, `state.toml`, `.setup-complete`,
+paletas da comunidade e wallpapers referenciados fora do repo. Isso evita que
+detalhes de monitores, wallpapers e posicoes de widgets de um host sobrescrevam
+os de outro.
+
+O sync nao versiona historico de clipboard, historico de notificacoes,
+`recently_used.json`, `usage_counts.json`, cache de plugins, repositorios de
+plugins nem catalogos de templates.
+
+Se o diretorio do host ainda nao existir, o Home Manager o inicializa a partir
+da base comum em:
+
+```text
+~/nix-config/modules/dotfiles/noctalia-v5-common/noctalia
+```
+
+Na primeira inicializacao apos o rebuild, se ainda existir estado da sessao
+atual em `$XDG_RUNTIME_DIR/noctalia-v5-clean-state/noctalia`, ele e copiado
+para o novo local persistente.
+
+## Sincronizacao Manual
+
+`just sync-noctalia` sincroniza as configuracoes visuais atuais do Noctalia v5
+para `modules/dotfiles/noctalia-v5-hosts/<hostname>/noctalia`.
+
+`just sync-noctalia-common` sincroniza a sessao atual como base comum para hosts
+novos. Use isso apenas quando quiser que o estado atual vire ponto de partida
+para outras maquinas.
+
+Para sincronizar a configuracao antiga em `~/.config/noctalia`, use:
+
+```sh
+just sync-noctalia-legacy
+```
 
 ## Verificacao
 

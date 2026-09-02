@@ -149,14 +149,14 @@ let
     window-rules = [
       {
         matches = [ { app-id = ".*"; } ];
-        opacity = 0.87;
-        geometry-corner-radius = 8;
+        opacity = 0.90;
+        geometry-corner-radius = 1;
         clip-to-geometry = true;
         draw-border-with-background = false;
         background-effect.blur = true;
         popups = {
           opacity = 0.95;
-          geometry-corner-radius = 8;
+          geometry-corner-radius = 1;
           background-effect = {
             xray = true;
             blur = true;
@@ -171,6 +171,7 @@ let
           { app-id = "chromium-browser"; }
           { app-id = "chromium"; }
           { app-id = "google-chrome"; }
+          { app-id = "zen"; }
         ];
         opacity = 1.0;
       }

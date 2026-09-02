@@ -1,5 +1,11 @@
 { self, inputs, ... }: {
-  flake.nixosModules.home = { config, pkgs, lib, ... }:
+  flake.nixosModules.home =
+    {
+      config,
+      pkgs,
+      lib,
+      ...
+    }:
     let
       userName = config.my.host.userName;
     in
@@ -8,6 +14,9 @@
         useGlobalPkgs = true;
         useUserPackages = true;
         backupFileExtension = "hm-backup";
+        extraSpecialArgs = {
+          myHostName = config.my.host.name;
+        };
         users.${userName} = {
           imports = [
             self.homeModules.default

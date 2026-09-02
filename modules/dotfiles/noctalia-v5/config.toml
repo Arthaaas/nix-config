@@ -7,3 +7,11 @@
 # keeping this profile isolated from any other Noctalia config on the system.
 #
 # Validate with: noctalia config validate
+
+[shell]
+time_format = "{:%H:%M}"
+date_format = "{:%d/%m/%Y}"
+
+[widget.clock]
+format = "{:%d/%m/%Y %H:%M}"
+tooltip_format = "{:%A, %d/%m/%Y %H:%M}"

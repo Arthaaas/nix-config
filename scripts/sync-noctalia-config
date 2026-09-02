@@ -2,43 +2,138 @@
 set -euo pipefail
 
 repo_root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
-runtime_dir="${NOCTALIA_CONFIG_DIR:-$HOME/.config/noctalia}"
-target_dir="$repo_root/modules/dotfiles/noctalia"
+legacy_config_dir="${NOCTALIA_CONFIG_DIR:-$HOME/.config/noctalia}"
+v5_state_dir="${NOCTALIA_STATE_HOME:-$HOME/.local/state/noctalia-v5-clean}/noctalia"
+v5_host="${NOCTALIA_HOST:-$(hostname -s)}"
+v5_host_target_dir="$repo_root/modules/dotfiles/noctalia-v5-hosts/$v5_host/noctalia"
+v5_common_target_dir="$repo_root/modules/dotfiles/noctalia-v5-common/noctalia"
+legacy_target_dir="$repo_root/modules/dotfiles/noctalia"
 
-settings_file="$runtime_dir/settings.json"
-colors_file="$runtime_dir/colors.json"
-plugins_file="$runtime_dir/plugins.json"
+copy_v5_state() {
+  local target_dir="$1"
+  local label="$2"
 
-mkdir -p "$target_dir"
+  if [[ -d "$v5_state_dir" ]]; then
+    if [[ -e "$target_dir" ]] && [[ "$(realpath "$v5_state_dir")" == "$(realpath "$target_dir")" ]]; then
+      echo "Noctalia v5 $label ja aponta para $target_dir"
+      return
+    fi
 
-if [[ -f "$settings_file" ]]; then
-  nix eval --impure --json --expr \
-    "{ settings = builtins.fromJSON (builtins.readFile \"$settings_file\"); }" \
-    > "$target_dir/noctalia.json"
-else
-  echo "Aviso: $settings_file nao existe; mantendo $target_dir/noctalia.json como esta." >&2
-fi
+    local tmp_target
+    tmp_target="$(mktemp -d "$target_dir.tmp.XXXXXX")"
+    {
+      printf '%s\n' 'clipboard/'
+      printf '%s\n' 'notification_history.json'
+      printf '%s\n' 'recently_used.json'
+      printf '%s\n' 'usage_counts.json'
+      printf '%s\n' 'community-templates/'
+      printf '%s\n' 'plugin-cache/'
+      printf '%s\n' 'plugins/'
+      printf '%s\n' '*.hm-backup'
+    } > "$tmp_target/.gitignore"
 
-if [[ -f "$colors_file" ]]; then
-  cp "$colors_file" "$target_dir/colors.json"
-fi
+    for file in settings.toml state.toml .setup-complete; do
+      if [[ -e "$v5_state_dir/$file" ]]; then
+        cp -aL "$v5_state_dir/$file" "$tmp_target/$file"
+      fi
+    done
 
-if [[ -f "$plugins_file" ]]; then
-  cp "$plugins_file" "$target_dir/plugins.json"
-fi
+    if [[ -d "$v5_state_dir/community-palettes" && -f "$v5_state_dir/settings.toml" ]]; then
+      mkdir -p "$tmp_target/community-palettes"
+      selected_palette="$(
+        { grep -E '^[[:space:]]*community_palette[[:space:]]*=' "$v5_state_dir/settings.toml" || true; } \
+          | sed -E 's/^[[:space:]]*community_palette[[:space:]]*=[[:space:]]*"([^"]+)".*/\1/' \
+          | tail -n 1
+      )"
+      if [[ -n "$selected_palette" ]]; then
+        palette_file="${selected_palette// /%20}.json"
+        if [[ -f "$v5_state_dir/community-palettes/$palette_file" ]]; then
+          cp -aL "$v5_state_dir/community-palettes/$palette_file" "$tmp_target/community-palettes/"
+        fi
+      fi
+    fi
 
-if [[ -d "$runtime_dir/colorschemes" ]]; then
-  rm -rf "$target_dir/colorschemes"
-  cp -R "$runtime_dir/colorschemes" "$target_dir/colorschemes"
-fi
+    if [[ -f "$v5_state_dir/settings.toml" ]]; then
+      mkdir -p "$repo_root/assets/wallpapers/$v5_host"
+      { grep -E '^[[:space:]]*path[[:space:]]*=' "$v5_state_dir/settings.toml" || true; } \
+        | sed -E 's/^[[:space:]]*path[[:space:]]*=[[:space:]]*"([^"]+)".*/\1/' \
+        | sort -u \
+        | while read -r wallpaper_path; do
+          if [[ -f "$wallpaper_path" && "$wallpaper_path" != "$repo_root/"* ]]; then
+            cp -a "$wallpaper_path" "$repo_root/assets/wallpapers/$v5_host/"
+          fi
+        done
+    fi
 
-if [[ -d "$runtime_dir/plugins" ]]; then
-  mkdir -p "$target_dir/plugins"
-  find "$runtime_dir/plugins" -mindepth 2 -maxdepth 2 -name settings.json -print | while read -r plugin_settings; do
-    plugin_name="$(basename -- "$(dirname -- "$plugin_settings")")"
-    mkdir -p "$target_dir/plugins/$plugin_name"
-    cp "$plugin_settings" "$target_dir/plugins/$plugin_name/settings.json"
-  done
-fi
+    rm -rf "$target_dir"
+    mv "$tmp_target" "$target_dir"
+  else
+    echo "Aviso: $v5_state_dir nao existe; mantendo $target_dir como esta." >&2
+  fi
 
-echo "Noctalia sincronizado para $target_dir"
+  echo "Noctalia v5 $label sincronizado para $target_dir"
+}
+
+sync_v5_host() {
+  copy_v5_state "$v5_host_target_dir" "host '$v5_host'"
+}
+
+sync_v5_common() {
+  copy_v5_state "$v5_common_target_dir" "common"
+}
+
+sync_legacy() {
+  local settings_file="$legacy_config_dir/settings.json"
+  local colors_file="$legacy_config_dir/colors.json"
+  local plugins_file="$legacy_config_dir/plugins.json"
+
+  mkdir -p "$legacy_target_dir"
+
+  if [[ -f "$settings_file" ]]; then
+    nix eval --impure --json --expr \
+      "{ settings = builtins.fromJSON (builtins.readFile \"$settings_file\"); }" \
+      > "$legacy_target_dir/noctalia.json"
+  else
+    echo "Aviso: $settings_file nao existe; mantendo $legacy_target_dir/noctalia.json como esta." >&2
+  fi
+
+  if [[ -f "$colors_file" ]]; then
+    cp "$colors_file" "$legacy_target_dir/colors.json"
+  fi
+
+  if [[ -f "$plugins_file" ]]; then
+    cp "$plugins_file" "$legacy_target_dir/plugins.json"
+  fi
+
+  if [[ -d "$legacy_config_dir/colorschemes" ]]; then
+    rm -rf "$legacy_target_dir/colorschemes"
+    cp -R "$legacy_config_dir/colorschemes" "$legacy_target_dir/colorschemes"
+  fi
+
+  if [[ -d "$legacy_config_dir/plugins" ]]; then
+    mkdir -p "$legacy_target_dir/plugins"
+    find "$legacy_config_dir/plugins" -mindepth 2 -maxdepth 2 -name settings.json -print | while read -r plugin_settings; do
+      plugin_name="$(basename -- "$(dirname -- "$plugin_settings")")"
+      mkdir -p "$legacy_target_dir/plugins/$plugin_name"
+      cp "$plugin_settings" "$legacy_target_dir/plugins/$plugin_name/settings.json"
+    done
+  fi
+
+  echo "Noctalia legado sincronizado para $legacy_target_dir"
+}
+
+case "${1:-host}" in
+  host | v5)
+    sync_v5_host
+    ;;
+  common)
+    sync_v5_common
+    ;;
+  legacy)
+    sync_legacy
+    ;;
+  *)
+    echo "Uso: $0 [host|common|legacy]" >&2
+    exit 2
+    ;;
+esac

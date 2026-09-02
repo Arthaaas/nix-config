@@ -1,0 +1,8 @@
+clipboard/
+notification_history.json
+recently_used.json
+usage_counts.json
+community-templates/
+plugin-cache/
+plugins/
+*.hm-backup

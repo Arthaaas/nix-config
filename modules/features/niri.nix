@@ -46,8 +46,11 @@
       '';
       niriNoctaliaSessionScript = pkgs.writeShellScript "niri-noctalia-v5-session" ''
         export NOCTALIA_CONFIG_HOME="$HOME/.config/noctalia-v5-clean"
-        export NOCTALIA_STATE_HOME="$XDG_RUNTIME_DIR/noctalia-v5-clean-state"
+        export NOCTALIA_STATE_HOME="$HOME/.local/state/noctalia-v5-clean"
         mkdir -p "$NOCTALIA_STATE_HOME"
+        if [ ! -e "$NOCTALIA_STATE_HOME/noctalia" ] && [ -e "$XDG_RUNTIME_DIR/noctalia-v5-clean-state/noctalia" ]; then
+          cp -a "$XDG_RUNTIME_DIR/noctalia-v5-clean-state/noctalia" "$NOCTALIA_STATE_HOME/noctalia"
+        fi
         exec ${niriNoctaliaWrapper}/bin/niri --session
       '';
       niriDmsSessionScript = pkgs.writeShellScript "niri-dms-session" ''
