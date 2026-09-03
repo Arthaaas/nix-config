@@ -7,6 +7,7 @@
         self.nixosModules.hostOptions
         self.nixosModules.user
         self.nixosModules.locale
+        self.nixosModules.memoryManagement
         self.nixosModules.networkManager
       ];
 

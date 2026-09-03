@@ -7,6 +7,7 @@
     ./boot/systemd-boot.nix
     ./network.nix
     ./locale.nix
+    ./memory.nix
     ./user.nix
   ];
 }
