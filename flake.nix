@@ -3,6 +3,10 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+
+    # Mantém o Zen com a revisão do nixpkgs que ainda fornece FFmpeg/AAC
+    # no wrapper, sem impedir a atualização do restante do sistema.
+    zen-nixpkgs.url = "github:nixos/nixpkgs/0bb7ec54c8483066ec9d7720e780a5caa71f8612";
     flake-parts.url = "github:hercules-ci/flake-parts";
     import-tree.url = "github:vic/import-tree";
 
@@ -38,7 +42,7 @@
 
     zen-browser = {
       url = "github:youwen5/zen-browser-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "zen-nixpkgs";
     };
 
     home-manager = {
