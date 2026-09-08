@@ -32,7 +32,7 @@
 
     services.desktopManager.plasma6.enable = true;
     services.desktopManager.cosmic.enable = true;
-    services.displayManager.defaultSession = "plasmax11";
+    services.displayManager.defaultSession = "niri-noctalia-v5";
 
     qt = {
       enable = true;
@@ -75,6 +75,11 @@
     services.upower.enable = true;
     services.udisks2.enable = true;
     services.gvfs.enable = true;
+    systemd.services.fwupd-refresh.restartIfChanged = false;
+    systemd.user.services."xdg-desktop-portal".restartIfChanged = false;
+    systemd.user.services."xdg-desktop-portal-gnome".restartIfChanged = false;
+    systemd.user.services."xdg-desktop-portal-gtk".restartIfChanged = false;
+
     xdg.portal = {
       enable = true;
       extraPortals = [

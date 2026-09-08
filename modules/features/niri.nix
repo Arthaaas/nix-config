@@ -111,7 +111,7 @@
 
       config.programs.niri = {
         enable = true;
-        package = niriInirWrapper;
+        package = niriNoctaliaWrapper;
       };
 
       config.services.displayManager.sessionPackages = [
