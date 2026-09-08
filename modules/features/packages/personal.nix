@@ -15,6 +15,7 @@
           discord
           spotify
           calibre
+          teamspeak6-client
         ];
       };
     };

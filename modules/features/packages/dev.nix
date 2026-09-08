@@ -24,7 +24,7 @@
           nil
           nixfmt
           vscode
-          gemini-cli
+          antigravity-cli
           codex
           claude-code
           docker
