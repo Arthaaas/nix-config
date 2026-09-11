@@ -57,32 +57,13 @@
           fi
         fi
 
-        $DRY_RUN_CMD mkdir -p "$state_dir" "$source_dir"
-        for file in settings.toml state.toml .setup-complete; do
-          target="$state_dir/$file"
-          source="$source_dir/$file"
-
-          if [ ! -e "$source" ]; then
-            $DRY_RUN_CMD touch "$source"
-          fi
-
-          if [ -L "$target" ]; then
-            $DRY_RUN_CMD rm "$target"
-          elif [ -e "$target" ]; then
-            $DRY_RUN_CMD mv "$target" "$target.hm-backup"
-          fi
-          $DRY_RUN_CMD ln -s "$source" "$target"
-        done
-
-        target="$state_dir/community-palettes"
-        source="$source_dir/community-palettes"
-        $DRY_RUN_CMD mkdir -p "$source"
-        if [ -L "$target" ]; then
-          $DRY_RUN_CMD rm "$target"
-        elif [ -e "$target" ]; then
-          $DRY_RUN_CMD mv "$target" "$target.hm-backup"
+        $DRY_RUN_CMD mkdir -p "$(dirname "$state_dir")" "$source_dir"
+        if [ -L "$state_dir" ]; then
+          $DRY_RUN_CMD rm "$state_dir"
+        elif [ -e "$state_dir" ]; then
+          $DRY_RUN_CMD mv "$state_dir" "$state_dir.hm-backup"
         fi
-        $DRY_RUN_CMD ln -s "$source" "$target"
+        $DRY_RUN_CMD ln -s "$source_dir" "$state_dir"
       '';
     };
 }

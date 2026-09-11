@@ -3,6 +3,8 @@ notification_history.json
 recently_used.json
 usage_counts.json
 community-templates/
+community-palettes/.catalog/
+notification_history_assets/
 plugin-cache/
 plugins/
 *.hm-backup
