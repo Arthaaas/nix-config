@@ -31,6 +31,7 @@
           kdePackages.okular
           notepad-next
           firefox
+          mtr
         ];
       };
     };

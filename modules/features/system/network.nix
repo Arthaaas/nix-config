@@ -12,6 +12,7 @@ let
     in
     {
       networking.hostName = config.my.host.name;
+      programs.mtr.enable = true;
       networking.networkmanager = {
         enable = true;
         plugins = [ pkgs.networkmanager-openvpn ];
