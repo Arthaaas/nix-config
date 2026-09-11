@@ -7,9 +7,14 @@ center = [ "clock", "ram", "cpu" ]
 warning_threshold = 10
 
 [lockscreen_widgets]
-enabled = false
+enabled = true
 schema_version = 2
-widget_order = [ "lockscreen-login-box@HDMI-A-1", "lockscreen-login-box@eDP-1" ]
+widget_order = [
+    "lockscreen-login-box@HDMI-A-1",
+    "lockscreen-login-box@eDP-1",
+    "lockscreen-widget-0000000000000001",
+    "lockscreen-widget-0000000000000002"
+]
 
     [lockscreen_widgets.grid]
     cell_size = 16
@@ -70,6 +75,31 @@ widget_order = [ "lockscreen-login-box@HDMI-A-1", "lockscreen-login-box@eDP-1" ]
         show_unlock_hint = true
         show_weather = true
 
+    [lockscreen_widgets.widget.lockscreen-widget-0000000000000001]
+    box_height = 256.0
+    box_width = 656.0
+    cx = 960.0
+    cy = 188.0
+    output = "HDMI-A-1"
+    placement_height = 1080.0
+    placement_width = 1920.0
+    rotation = 0.0
+    type = "clock"
+
+        [lockscreen_widgets.widget.lockscreen-widget-0000000000000001.settings]
+        clock_style = "digital"
+
+    [lockscreen_widgets.widget.lockscreen-widget-0000000000000002]
+    box_height = 416.0
+    box_width = 816.0
+    cx = 963.0
+    cy = 532.0
+    output = "HDMI-A-1"
+    placement_height = 1080.0
+    placement_width = 1920.0
+    rotation = 0.0
+    type = "calendar"
+
 [shell]
 niri_overview_type_to_launch_enabled = true
 
@@ -91,6 +121,3 @@ directory = "/home/arthurb/nix-config/assets/wallpapers/casa"
 
     [wallpaper.monitors.eDP-1]
     path = "/home/arthurb/nix-config/assets/wallpapers/casa/wallpaperflare.com_wallpaper.jpg"
-
-[widget.cpu]
-enabled = false
