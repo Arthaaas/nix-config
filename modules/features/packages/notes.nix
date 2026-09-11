@@ -13,6 +13,7 @@
       config = lib.mkIf config.my.packages.notes.enable {
         environment.systemPackages = with pkgs; [
           obsidian
+          emacs-pgtk
         ];
       };
     };
