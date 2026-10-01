@@ -8,9 +8,12 @@
       ...
     }:
     {
+      imports = [ inputs.openlogi.nixosModules.default ];
+
       options.my.packages.desktopApps.enable = lib.mkEnableOption "desktop application packages";
 
       config = lib.mkIf config.my.packages.desktopApps.enable {
+        programs.openlogi.enable = true;
         services.ratbagd.enable = true;
 
         environment.systemPackages = with pkgs; [
@@ -32,7 +35,6 @@
           winboat
           localsend
           piper
-          solaar
           libratbag
         ];
       };
