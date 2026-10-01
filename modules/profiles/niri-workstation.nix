@@ -19,6 +19,7 @@
         self.nixosModules.personalPackages
         self.nixosModules.mediaPackages
         self.nixosModules.gamesPackages
+        self.nixosModules.virtualboxPackages
         self.nixosModules.desktopBase
         self.nixosModules.pipewireAudio
         self.nixosModules.fuxiH3AudioFix

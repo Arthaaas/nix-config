@@ -36,6 +36,7 @@
           localsend
           piper
           libratbag
+          virtualbox
         ];
       };
     };

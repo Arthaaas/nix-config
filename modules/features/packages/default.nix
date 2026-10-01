@@ -10,5 +10,6 @@
     ./personal.nix
     ./games.nix
     ./work.nix
+    ./virtualbox.nix
   ];
 }

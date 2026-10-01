@@ -16,6 +16,7 @@
         notes.enable = true;
         personal.enable = false;
         media.enable = false;
+        virtualbox.enable = true;
       };
     };
 }
