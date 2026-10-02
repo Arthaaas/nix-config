@@ -13,6 +13,7 @@ let
 
   noctaliaPackage = inputs.noctalia.packages.${system}.default;
   noctaliaExe = lib.getExe noctaliaPackage;
+  networkManagerAppletExe = lib.getExe pkgs.networkmanagerapplet;
 
   dmsPackage = inputs.dms.packages.${system}.default;
   dmsExe = lib.getExe dmsPackage;
@@ -283,7 +284,10 @@ rec {
   };
 
   noctaliaSettings = lib.recursiveUpdate baseSettings {
-    spawn-at-startup = baseSettings.spawn-at-startup ++ [ [ noctaliaExe ] ];
+    spawn-at-startup = baseSettings.spawn-at-startup ++ [
+      [ networkManagerAppletExe "--indicator" ]
+      [ noctaliaExe ]
+    ];
     binds = noctaliaBinds;
   };
 
