@@ -68,7 +68,7 @@ widget_order = [ "lockscreen-login-box@HDMI-A-1", "lockscreen-login-box@DP-2" ]
         show_weather = true
 
 [shell.launcher]
-pinned = [ "obsidian" ]
+pinned = [ "obsidian", "zen" ]
 
 [theme]
 builtin = "Noctalia"
