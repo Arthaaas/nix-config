@@ -1,2 +1,6 @@
 result
 .codex
+
+# Noctalia runtime notification data
+modules/dotfiles/noctalia-v5-hosts/nixos/noctalia/notification_history.json
+modules/dotfiles/noctalia-v5-hosts/nixos/noctalia/notification_history_assets/
