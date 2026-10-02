@@ -18,6 +18,7 @@
         personal.enable = true;
         media.enable = true;
         games.enable = true;
+        virtualbox.enable = true;
       };
     };
 }
