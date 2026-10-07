@@ -132,6 +132,12 @@ let
       tap = _: { };
       natural-scroll = _: { };
     };
+    input.trackball = {
+      accel-profile = "flat";
+      accel-speed = 0.15;
+      scroll-method = "on-button-down";
+      scroll-button = 276;
+    };
     layout = {
       gaps = 18;
       focus-ring = {
@@ -285,7 +291,10 @@ rec {
 
   noctaliaSettings = lib.recursiveUpdate baseSettings {
     spawn-at-startup = baseSettings.spawn-at-startup ++ [
-      [ networkManagerAppletExe "--indicator" ]
+      [
+        networkManagerAppletExe
+        "--indicator"
+      ]
       [ noctaliaExe ]
     ];
     binds = noctaliaBinds;

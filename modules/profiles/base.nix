@@ -9,6 +9,7 @@
         self.nixosModules.locale
         self.nixosModules.memoryManagement
         self.nixosModules.networkManager
+        self.nixosModules.nordicTrackball
       ];
 
       nix.settings.experimental-features = [
