@@ -18,7 +18,10 @@
           gnumake
           python3
           nodejs
-          dotnet-sdk_10
+          (with dotnetCorePackages; combinePackages [
+            sdk_8_0
+            sdk_10_0
+          ])
           powershell
           stylua
           lua-language-server
