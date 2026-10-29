@@ -9,7 +9,29 @@ Esta configuracao mantem uma sessao selecionavel no login:
 - `modules/features/niri.nix` define a sessao de login, o wrapper do Niri e os pacotes expostos ao display manager.
 - `lib/niri-shell-settings.nix` define a base do Niri e os binds do Noctalia.
 - `modules/features/noctalia.nix` habilita o modulo NixOS do Noctalia, sem iniciar servico proprio.
+- O mesmo modulo habilita o Noctalia Greeter do nixpkgs para o greetd.
 - `modules/home/programs/noctalia.nix` instala a configuracao limpa do Noctalia v5 em `~/.config/noctalia-v5-clean`.
+
+## Tela de login
+
+Nos perfis com Noctalia, o greetd inicia `noctalia-greeter-session`, que usa
+o compositor proprio do greeter. A sessao padrao e `Niri + Noctalia v5`,
+cujo wrapper configura os diretorios de configuracao e estado antes de iniciar
+o Niri. Plasma e COSMIC continuam disponiveis no seletor de sessoes.
+
+O teclado do greeter segue `my.host.keyboard.layout` e `variant`: `us/intl`
+no desktop e `br` nos notebooks. O diretorio de sessoes gerado pelo NixOS e
+exposto ao greetd via `XDG_DATA_DIRS`, incluindo a sessao personalizada.
+
+As opcoes ficam em `services.displayManager.noctalia-greeter`, usando o
+modulo do nixpkgs ja fixado no `flake.lock`. O modulo prepara o diretorio
+`/var/lib/noctalia-greeter`, habilita AccountsService e integra o Polkit.
+O tema e o wallpaper usam os padroes do greeter; a sincronizacao com a
+aparencia da sessao nao e configurada aqui.
+
+O tuigreet continua como alternativa nos perfis sem o Noctalia Greeter.
+Aplicar e testar a tela de login exige rebuild e nova entrada na sessao,
+a cargo do usuario. A avaliacao Nix nao testa renderizacao nem autenticacao.
 
 ## Binds comuns
 

@@ -2,8 +2,8 @@
   flake.nixosModules.desktopBase = { config, lib, pkgs, ... }: {
     services.greetd = {
       enable = true;
-      useTextGreeter = true;
-      settings.default_session = {
+      useTextGreeter = lib.mkDefault (!config.services.displayManager.noctalia-greeter.enable);
+      settings.default_session = lib.mkIf (!config.services.displayManager.noctalia-greeter.enable) {
         user = "greeter";
         command = lib.escapeShellArgs [
           "${pkgs.tuigreet}/bin/tuigreet"
