@@ -55,6 +55,6 @@ Home Manager runs as a NixOS module (`self.nixosModules.home`, in `modules/home/
 
 ### Desktop / dotfiles
 
-The desktop is **niri** (Wayland) with the **Noctalia** shell (via the `wrapper-modules` input) plus DMS/iNiR. Static dotfiles live under `modules/dotfiles/` (nvim, kitty, tmux, noctalia).
+The desktop is **niri** (Wayland) with the **Noctalia v5** shell (via the `wrapper-modules` input). Static dotfiles live under `modules/dotfiles/` (nvim, kitty, tmux, noctalia).
 
 Noctalia is special: its package is built in `modules/features/noctalia.nix` from `modules/dotfiles/noctalia/noctalia.json`, but points `outOfStoreConfig` at the live `~/.config/noctalia`. After changing settings in the running shell, run `just sync-noctalia` (→ `scripts/sync-noctalia-config`) to copy the runtime settings/colors/plugins/colorschemes back into the repo so they're committed.

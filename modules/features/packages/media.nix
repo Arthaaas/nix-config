@@ -14,6 +14,8 @@
         environment.systemPackages = with pkgs; [
           qbittorrent
           ffmpegthumbnailer
+          obs-studio
+          losslesscut
         ];
       };
     };

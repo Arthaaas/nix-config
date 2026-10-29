@@ -6,8 +6,6 @@
       imports = [
         self.nixosModules.baseProfile
         self.nixosModules.niri
-        self.nixosModules.inir
-        self.nixosModules.dms
         self.nixosModules.noctalia
         self.nixosModules.home
         self.nixosModules.corePackages

@@ -18,7 +18,8 @@
           gnumake
           python3
           nodejs
-          dotnet-sdk
+          dotnet-sdk_10
+          powershell
           stylua
           lua-language-server
           nil
@@ -27,6 +28,7 @@
           antigravity-cli
           codex
           claude-code
+          devenv
           docker
           jetbrains.rider
           opencode

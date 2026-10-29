@@ -7,16 +7,9 @@
 let
   system = pkgs.stdenv.hostPlatform.system;
 
-  inirPackage = inputs.inir.packages.${system}.default;
-  inirExe = lib.getExe inirPackage;
-  inirCommand = args: lib.escapeShellArgs ([ inirExe ] ++ args);
-
   noctaliaPackage = inputs.noctalia.packages.${system}.default;
   noctaliaExe = lib.getExe noctaliaPackage;
   networkManagerAppletExe = lib.getExe pkgs.networkmanagerapplet;
-
-  dmsPackage = inputs.dms.packages.${system}.default;
-  dmsExe = lib.getExe dmsPackage;
 
   niriSidebar = pkgs.rustPlatform.buildRustPackage {
     pname = "niri-sidebar";
@@ -158,7 +151,7 @@ let
         matches = [ { app-id = ".*"; } ];
         opacity = 0.90;
         geometry-corner-radius = 1;
-        clip-to-geometry = true;
+        clip-to-geometry = false;
         draw-border-with-background = false;
         background-effect.blur = true;
         popups = {
@@ -200,94 +193,20 @@ let
     binds = commonBinds;
   };
 
-  inirBinds = {
-    "Mod+S".spawn-sh = inirCommand [
-      "overview"
-      "toggle"
-    ];
-    "Mod+Shift+S".spawn-sh = inirCommand [
-      "region"
-      "screenshot"
-    ];
-    "Mod+Shift+X".spawn-sh = inirCommand [
-      "region"
-      "ocr"
-    ];
-    "Mod+Alt+A".spawn-sh = inirCommand [
-      "region"
-      "search"
-    ];
-    "Mod+G".spawn-sh = inirCommand [
-      "overlay"
-      "toggle"
-    ];
-    "Mod+Alt+V".spawn-sh = inirCommand [
-      "clipboard"
-      "toggle"
-    ];
-    "Mod+Comma".spawn-sh = inirCommand [ "settings" ];
-    "Mod+Slash".spawn-sh = inirCommand [
-      "cheatsheet"
-      "toggle"
-    ];
-    "Ctrl+Alt+T".spawn-sh = inirCommand [
-      "wallpaperSelector"
-      "toggle"
-    ];
-    "Mod+Shift+W".spawn-sh = inirCommand [
-      "panelFamily"
-      "cycle"
-    ];
-    "Mod+Shift+Q".spawn-sh = inirCommand [
-      "session"
-      "toggle"
-    ];
-    "Alt+Tab".spawn-sh = inirCommand [
-      "altSwitcher"
-      "next"
-    ];
-    "Alt+Shift+Tab".spawn-sh = inirCommand [
-      "altSwitcher"
-      "previous"
-    ];
-  };
-
   noctaliaBinds = {
     "Mod+S".spawn-sh = "${noctaliaExe} msg panel-toggle launcher";
   };
 
-  dmsBinds = {
-    "Mod+S".spawn-sh = "${dmsExe} ipc call spotlight toggle";
-  };
 in
 rec {
   inherit
     baseSettings
     commonBinds
-    dmsBinds
-    dmsExe
-    dmsPackage
-    inirBinds
-    inirExe
-    inirPackage
     niriSidebar
     noctaliaBinds
     noctaliaExe
     noctaliaPackage
     ;
-
-  dmsOutputsPath = "${config.my.host.homeDirectory}/.config/niri/dms/outputs.kdl";
-
-  inirSettings = lib.recursiveUpdate baseSettings {
-    spawn-at-startup = baseSettings.spawn-at-startup ++ [
-      [
-        inirExe
-        "run"
-        "--session"
-      ]
-    ];
-    binds = inirBinds;
-  };
 
   noctaliaSettings = lib.recursiveUpdate baseSettings {
     spawn-at-startup = baseSettings.spawn-at-startup ++ [
@@ -300,14 +219,4 @@ rec {
     binds = noctaliaBinds;
   };
 
-  dmsSettings = lib.recursiveUpdate baseSettings {
-    spawn-at-startup = baseSettings.spawn-at-startup ++ [
-      [
-        dmsExe
-        "run"
-        "--session"
-      ]
-    ];
-    binds = dmsBinds;
-  };
 }

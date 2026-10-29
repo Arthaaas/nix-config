@@ -1,18 +1,14 @@
 # Sessoes Niri
 
-Esta configuracao mantem tres sessoes selecionaveis no login:
+Esta configuracao mantem uma sessao selecionavel no login:
 
-- `niri-inir`: Niri com iNiR.
 - `niri-noctalia-v5`: Niri com Noctalia v5.
-- `niri-dms`: Niri com DMS.
 
 ## Fonte de verdade
 
-- `modules/features/niri.nix` define as sessoes de login, wrappers do Niri e pacotes expostos ao display manager.
-- `lib/niri-shell-settings.nix` define a base comum do Niri e os binds especificos de cada shell.
+- `modules/features/niri.nix` define a sessao de login, o wrapper do Niri e os pacotes expostos ao display manager.
+- `lib/niri-shell-settings.nix` define a base do Niri e os binds do Noctalia.
 - `modules/features/noctalia.nix` habilita o modulo NixOS do Noctalia, sem iniciar servico proprio.
-- `modules/features/dms.nix` habilita DMS e seu greeter, sem iniciar a sessao de shell fora do wrapper do Niri.
-- `modules/features/inir.nix` habilita iNiR, sem iniciar servico proprio.
 - `modules/home/programs/noctalia.nix` instala a configuracao limpa do Noctalia v5 em `~/.config/noctalia-v5-clean`.
 
 ## Binds comuns
@@ -26,13 +22,11 @@ O lock global usa:
 loginctl lock-session
 ```
 
-Isso evita depender de subcomandos especificos de Noctalia, DMS ou iNiR.
+Isso evita depender de subcomandos especificos do Noctalia.
 
 ## Binds especificos
 
 - `noctaliaBinds`: apenas comandos que chamam `noctalia`.
-- `dmsBinds`: apenas comandos que chamam `dms`.
-- `inirBinds`: apenas comandos que chamam `inir`.
 
 Se um bind chama diretamente um shell, ele nao deve entrar em `commonBinds`.
 
