@@ -12,6 +12,38 @@ Esta configuracao mantem uma sessao selecionavel no login:
 - O mesmo modulo habilita o Noctalia Greeter do nixpkgs para o greetd.
 - `modules/home/programs/noctalia.nix` instala a configuracao limpa do Noctalia v5 em `~/.config/noctalia-v5-clean`.
 
+## Monitores pela interface grafica
+
+Nos hosts com `my.desktop.niri.displaySettings = null` (padrao), o pacote
+`nwg-displays` fica disponivel no launcher. Abra-o na sessao Niri, arraste
+as telas, ajuste resolucao, Hz e escala e clique em Apply.
+
+Os ajustes ficam em `~/.config/niri/monitor.kdl`, um arquivo local editavel
+que nao e sobrescrito por rebuilds. O wrapper inclui esse arquivo diretamente,
+e o Niri observa suas alteracoes para recarregar a configuracao automaticamente.
+O include e opcional para permitir validacao e primeiro login sem estado local.
+O Home Manager cria o diretorio e os arquivos iniciais apenas se nao existirem.
+O `config.kdl` local serve para a integracao do nwg-displays; a configuracao
+principal da sessao continua sendo a gerada pelo wrapper Nix.
+O pacote recebe um ajuste para usar o hot reload do Niri, evitando que o
+botao Apply carregue somente o arquivo local e remova os binds do wrapper.
+
+Para instalar a integracao no notebook de trabalho:
+
+```sh
+sudo nixos-rebuild switch --flake ~/nix-config#notebook-kot
+```
+
+Depois, entre novamente na sessao `Niri + Noctalia v5` e abra `nwg-displays`.
+Os ajustes seguintes nao precisam de rebuild. Para backup, salve tambem
+`~/.config/niri/monitor.kdl`; ele nao e sincronizado pelo `sync-noctalia`.
+
+Hosts com `displaySettings` definido continuam declarativos, sem carregar o
+arquivo da GUI. Isso preserva os monitores do desktop de casa, definidos em
+`data/desktop-casa-display-settings.nix`. Para migrar um desses hosts para a GUI,
+remova a atribuicao de `displaySettings`, aplique o rebuild e configure as telas
+no nwg-displays.
+
 ## Tela de login
 
 Nos perfis com Noctalia, o greetd inicia `noctalia-greeter-session`, que usa
