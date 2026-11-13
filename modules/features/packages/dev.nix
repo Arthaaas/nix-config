@@ -29,7 +29,7 @@
           nixfmt
           vscode
           antigravity-cli
-          codex
+          inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.codex
           claude-code
           devenv
           docker

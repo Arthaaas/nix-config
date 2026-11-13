@@ -9,6 +9,7 @@
     zen-nixpkgs.url = "github:nixos/nixpkgs/0bb7ec54c8483066ec9d7720e780a5caa71f8612";
     flake-parts.url = "github:hercules-ci/flake-parts";
     import-tree.url = "github:vic/import-tree";
+    llm-agents.url = "github:numtide/llm-agents.nix";
 
     wrapper-modules = {
       url = "github:BirdeeHub/nix-wrapper-modules";
