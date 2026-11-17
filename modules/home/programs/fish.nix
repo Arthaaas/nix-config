@@ -8,7 +8,7 @@
         interactiveShellInit = ''
           set -g fish_greeting
 
-          if type -q fetch; and not set -q DEVENV_ROOT
+          if isatty stdout; and type -q fetch; and not set -q DEVENV_ROOT
             clear
             fetch
           end
