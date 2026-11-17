@@ -8,6 +8,30 @@
       ...
     }:
     let
+      # PS5Upload 12.4.13: pacote NUR indicado pelo projeto, com revisão fixa.
+      ps5upload =
+        pkgs.callPackage
+          (
+            (builtins.fetchTarball {
+              url = "https://github.com/GriefNorth/nur-packages/archive/fdf612fca69c2c0c6344bae41ce6044bffc8b2ac.tar.gz";
+              sha256 = "186qsdddc71nc81gldzzp8m8rnj2hpx2lxvvwx32ry16bsqhi3h1";
+            })
+            + "/pkgs/ps5upload"
+          )
+          {
+            appimageTools = pkgs.appimageTools // {
+              wrapType2 =
+                args:
+                pkgs.appimageTools.wrapType2 (
+                  args
+                  // {
+                    # A biblioteca não vem no AppImage nem no ambiente FHS padrão.
+                    extraPkgs = p: (args.extraPkgs or (_: [ ])) p ++ [ p.libgpg-error ];
+                  }
+                );
+            };
+          };
+
       bottlesWithNixFixes = pkgs.bottles.override {
         removeWarningPopup = true;
         bottles-unwrapped =
@@ -49,6 +73,7 @@
         environment.systemPackages = with pkgs; [
           hydralauncher
           bottlesWithNixFixes
+          ps5upload
         ];
       };
     };
