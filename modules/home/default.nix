@@ -17,7 +17,7 @@
         extraSpecialArgs = {
           myHostName = config.my.host.name;
         };
-        users.${userName} = {
+        users.${userName} = { lib, ... }: {
           imports = [
             self.homeModules.default
           ];
@@ -26,6 +26,10 @@
 
           gtk = {
             enable = true;
+            theme = {
+              name = "Adwaita-dark";
+              package = pkgs.gnome-themes-extra;
+            };
             gtk3.extraConfig.gtk-application-prefer-dark-theme = true;
             gtk4.extraConfig.gtk-application-prefer-dark-theme = true;
             iconTheme = {
@@ -37,8 +41,16 @@
             enable = true;
             settings."org/gnome/desktop/interface" = {
               color-scheme = "prefer-dark";
+              gtk-theme = "Adwaita-dark";
             };
           };
+
+          # Update the existing KDE palette without replacing unrelated settings.
+          home.activation.applyDarkQtTheme = lib.hm.dag.entryAfter [ "linkGeneration" ] ''
+            run env QT_QPA_PLATFORM=offscreen \
+              XDG_DATA_DIRS="${pkgs.kdePackages.breeze}/share:''${XDG_DATA_DIRS:-}" \
+              ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-colorscheme BreezeDark
+          '';
           home.pointerCursor = {
             enable = true;
             name = "breeze_cursors";
