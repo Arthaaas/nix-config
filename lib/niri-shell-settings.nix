@@ -31,7 +31,7 @@ let
   commonBinds = {
     "Mod+Return".spawn-sh = lib.getExe pkgs.kitty;
     "Mod+Q".close-window = { };
-    "Mod+E".spawn-sh = lib.getExe pkgs.nautilus;
+    "Mod+E".spawn-sh = lib.getExe pkgs.kdePackages.dolphin;
     "Mod+P".screenshot = { };
     "Mod+Shift+P".screenshot-screen = { };
     "Mod+Ctrl+P".screenshot-window = { };
