@@ -28,6 +28,7 @@
           nil
           nixfmt
           vscode
+          postman
           antigravity-cli
           inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.codex
           claude-code
