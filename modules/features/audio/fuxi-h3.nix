@@ -9,7 +9,7 @@
         {
           matches = [
             {
-              "device.name" = "alsa_card.usb-XiiSound_Technology_Corporation_Fuxi-H3-00";
+              "device.name" = "~^alsa_card[.]usb-XiiSound_Technology_Corporation_Fuxi-H3-00([.][0-9]+)?$";
             }
           ];
           actions = {
